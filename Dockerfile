@@ -1,12 +1,21 @@
-FROM n8nio/n8n:latest
+# Use Node.js LTS
+FROM node:18-bullseye
 
 # Install ffmpeg
-USER root
-RUN apk add --no-cache ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
 
-# Switch back to node user
-USER node
+# Install n8n globally
+RUN npm install -g n8n
 
-# Expose n8n default port
-EXPOSE 5678
+# Create app directory
+WORKDIR /data
+
+# Expose Render's dynamic port
+ENV N8N_PORT=$PORT
+ENV N8N_HOST=0.0.0.0
+ENV WEBHOOK_TUNNEL_URL=https://n8n-ffmpeg-8kkr.onrender.com/
+
+EXPOSE $PORT
+
+# Start n8n
 CMD ["n8n"]
