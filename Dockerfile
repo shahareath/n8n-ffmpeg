@@ -18,4 +18,4 @@ ENV WEBHOOK_TUNNEL_URL=https://n8n-ffmpeg-8kkr.onrender.com/
 EXPOSE $PORT
 
 # Start n8n
-CMD ["n8n"]
+CMD ["n8n", "start"]
