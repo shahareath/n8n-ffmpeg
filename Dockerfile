@@ -1,17 +1,15 @@
-services:
-  - type: web
-    name: n8n-ffmpeg
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
-    envVars:
-      - key: N8N_PORT
-        value: 5678
-      - key: N8N_BASIC_AUTH_ACTIVE
-        value: "true"
-      - key: N8N_BASIC_AUTH_USER
-        value: "admin"
-      - key: N8N_BASIC_AUTH_PASSWORD
-        value: "yourpassword"
-      - key: N8N_ENCRYPTION_KEY
-        value: "myencryptionkey123"   # workflow encryption key
+# Use official n8n image
+FROM n8nio/n8n:latest
+
+# Install ffmpeg
+USER root
+RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+
+# Switch back to n8n user
+USER node
+
+# Expose default n8n port
+EXPOSE 5678
+
+# Start n8n
+CMD ["n8n", "start"]
