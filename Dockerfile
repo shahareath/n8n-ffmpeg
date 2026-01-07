@@ -3,7 +3,7 @@ FROM n8nio/n8n:latest
 
 # Install ffmpeg
 USER root
-RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache ffmpeg
 
 # Switch back to n8n user
 USER node
