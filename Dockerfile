@@ -1,13 +1,12 @@
-# 'latest' এর বদলে 'latest-alpine' ব্যবহার করুন যাতে apk পাওয়া যায়
-FROM n8nio/n8n:latest-alpine
+# Debian ভিত্তিক n8n ইমেজ ব্যবহার করুন (এটিতে apt-get পাওয়া যাবে)
+FROM n8nio/n8n:latest-debian
 
-# এখন ffmpeg ইনস্টল করা যাবে
+# এখন ffmpeg ইনস্টল করুন
 USER root
-RUN apk add --no-cache ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
 
-# আগের মতো n8n ইউসারে ফিরে যান
+# আগের মতো ইউসারে ফিরে যান
 USER node
 
-# পোর্ট এবং স্টার্ট কমান্ড
 EXPOSE 5678
 CMD ["n8n", "start"]
