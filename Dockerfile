@@ -1,9 +1,9 @@
-# Debian ভিত্তিক n8n ইমেজ ব্যবহার করুন (এটিতে apt-get পাওয়া যাবে)
-FROM n8nio/n8n:latest-debian
+# n8n v1 সিরিজের ইমেজ ব্যবহার করুন যাতে apk পাওয়া যায়
+FROM n8nio/n8n:1.71.1
 
-# এখন ffmpeg ইনস্টল করুন
+# এখন ffmpeg ইনস্টল হবে
 USER root
-RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache ffmpeg
 
 # আগের মতো ইউসারে ফিরে যান
 USER node
